@@ -4,7 +4,7 @@
 
 2) Изменить жанр фильма, поменять "комедия" на "драма"
 
-3) Изменить задний фон с постером фильма на изображение "bg.jpg". Оно лежит в папке img.
+3) Изменить задний фон постера с фильмом на изображение "bg.jpg". Оно лежит в папке img.
 Реализовать только при помощи JS
 
 4) Список фильмов на странице сформировать на основании данных из этого JS файла.
@@ -24,59 +24,24 @@ const movieDB = {
     ]
 };
 
+const divAdv = document.querySelector('.promo__adv');
+const genre = document.querySelector('.promo__genre');
+const promoBg = document.querySelector('.promo__bg');
+const ulList = document.querySelectorAll('.promo__interactive-item');
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-const adv = document.querySelectorAll('.promo__adv img'),
-      poster = document.querySelector('.promo__bg'),
-      genre = poster.querySelector('.promo__genre'),
-      movieList = document.querySelector('.promo__interactive-list');
-
-adv.forEach(item => {
-    item.remove();
-});
+divAdv.innerHTML = '';
+// divAdv.children[0].remove();
+// divAdv.children[0].remove();
+// divAdv.children[0].remove();
+// divAdv.children[0].remove();
 
 genre.textContent = 'драма';
 
-poster.style.backgroundImage = 'url("img/bg.jpg")';
-
-movieList.innerHTML = "";
+promoBg.style.cssText = 'background-image: url(./img/bg.jpg)';
+// promoBg.style.backgroundImage = 'url(./img/bg.jpg)';
 
 movieDB.movies.sort();
 
-movieDB.movies.forEach((film, i) => {
-    movieList.innerHTML += `
-        <li class="promo__interactive-item">${i + 1} ${film}
-            <div class="delete"></div>
-        </li>
-    `;
+ulList.forEach((item, index) => {
+    item.textContent = `№${index + 1} ${movieDB.movies[index]}`;
 });
