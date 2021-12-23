@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    const modalTimer = setTimeout(openModal, 4000);
+    // const modalTimer = setTimeout(openModal, 4000);
 
     const scrollToOpenModal = () => {
         if (window.scrollY + document.documentElement.clientHeight >= document.documentElement.scrollHeight) {
