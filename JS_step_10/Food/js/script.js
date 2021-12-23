@@ -138,13 +138,15 @@ document.addEventListener('DOMContentLoaded', function() {
     // Class for cards -----------------------------------------
 
     class CardItem {
-        constructor(img, alt, subtitle, descr, price, transfer) {
+        constructor(img, alt, subtitle, descr, price, parentSelector, ...classes) {
             this.img = img;
             this.alt = alt;
             this.subtitle = subtitle;
             this.descr = descr;
             this.price = price;
-            this.transfer = transfer;
+            this.parent = document.querySelector(parentSelector);
+            this.classes = classes;
+            this.transfer = 27;
             this.converter();
         }
 
@@ -152,61 +154,59 @@ document.addEventListener('DOMContentLoaded', function() {
             this.price = this.price * this.transfer;
         }
 
-        clearContainer() {
-            document.querySelector('.menu .container').innerHTML = '';
-        }
-
         card() {
-            const div = document.querySelector('.menu .container');
-            div.innerHTML += `
-                <div class="menu__item">
-                    <img src="${this.img}" alt="${this.alt}">
-                    <h3 class="menu__item-subtitle">Меню "${this.subtitle}"</h3>
-                    <div class="menu__item-descr">${this.descr}</div>
-                    <div class="menu__item-divider"></div>
-                    <div class="menu__item-price">
-                        <div class="menu__item-cost">Цена:</div>
-                        <div class="menu__item-total">
-                            <span>${this.price}</span> грн/день
-                        </div>
+            const div = document.createElement('div');
+
+            if (this.classes.length === 0) {
+                this.classes = 'menu__item';
+                div.classList.add(this.classes);
+            } else {
+                this.classes.forEach(className => div.classList.add(className));
+            }
+            
+            div.innerHTML = `
+                <img src="${this.img}" alt="${this.alt}">
+                <h3 class="menu__item-subtitle">Меню "${this.subtitle}"</h3>
+                <div class="menu__item-descr">${this.descr}</div>
+                <div class="menu__item-divider"></div>
+                <div class="menu__item-price">
+                    <div class="menu__item-cost">Цена:</div>
+                    <div class="menu__item-total">
+                        <span>${this.price}</span> грн/день
                     </div>
                 </div>
             `;
+            this.parent.append(div);
         }
     }
 
 
-    new CardItem().clearContainer();
-
-    const vegy = new CardItem(
-        'img/tabs/vegy.jpg',
-        'vegy',
+    new CardItem(
+        "img/tabs/vegy.jpg",
+        "vegy",
         'Фитнес',
         'Меню "Фитнес" - это новый подход к приготовлению блюд: больше свежих овощей и фруктов. Продукт активных и здоровых людей. Это абсолютно новый продукт с оптимальной ценой и высоким качеством!',
-        29,
-        9
-    );
-    vegy.card();
+        11,
+        ".menu .container"
+    ).card();
 
-    const elite = new CardItem(
-        'img/tabs/elite.jpg',
-        'elite',
+    new CardItem(
+        "img/tabs/elite.jpg",
+        "elite",
         'Премиум',
         'В меню “Премиум” мы используем не только красивый дизайн упаковки, но и качественное исполнение блюд. Красная рыба, морепродукты, фрукты - ресторанное меню без похода в ресторан!',
-        50,
-        9
-    );
-    elite.card();
+        15,
+        ".menu .container"
+    ).card();
 
-    const post = new CardItem(
-        'img/tabs/post.jpg',
-        'post',
+    new CardItem(
+        "img/tabs/post.jpg",
+        "post",
         'Постное',
         'Меню “Постное” - это тщательный подбор ингредиентов: полное отсутствие продуктов животного происхождения, молоко из миндаля, овса, кокоса или гречки, правильное количество белков за счет тофу и импортных вегетарианских стейков.',
-        30,
-        9
-    );
-    post.card();
+        8,
+        ".menu .container"
+    ).card();
 });
 
 
