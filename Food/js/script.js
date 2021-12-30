@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Timer
-    const deadline = '2021-12-31';
+    const deadline = '2022-01-01';
 
     function getTimeRemaining(endtime) {
         const total = Date.parse(endtime) - Date.parse(new Date());
@@ -187,37 +187,19 @@ document.addEventListener('DOMContentLoaded', function() {
         return await result.json();
     };
 
-    getResource('http://localhost:3000/menu')
+    // getResource('http://localhost:3000/menu')
+    // .then(data => {
+    //     data.forEach(({img, altimg, title, descr, price}) => {
+    //         new CardItem(img, altimg, title, descr, price, '.menu .container').card();
+    //     });
+    // });
+
+    axios.get('http://localhost:3000/menu')
     .then(data => {
-        data.forEach(({img, altimg, title, descr, price}) => {
+            data.data.forEach(({img, altimg, title, descr, price}) => {
             new CardItem(img, altimg, title, descr, price, '.menu .container').card();
         });
     });
-
-    // getResource('http://localhost:3000/menu')
-    // .then(data => createCard(data));
-
-    // function createCard(data) {
-    //     data.forEach(({img, altimg, title, descr, price}) => {
-    //         const div = document.createElement('div');
-    //         div.classList.add('menu__item');
-
-    //         div.innerHTML = `
-    //             <img src="${img}" alt="${altimg}">
-    //             <h3 class="menu__item-subtitle">Меню "${title}"</h3>
-    //             <div class="menu__item-descr">${descr}</div>
-    //             <div class="menu__item-divider"></div>
-    //             <div class="menu__item-price">
-    //                 <div class="menu__item-cost">Цена:</div>
-    //                 <div class="menu__item-total">
-    //                     <span>${price}</span> грн/день
-    //                 </div>
-    //             </div>
-    //         `;
-
-    //         document.querySelector('.menu .container').append(div);
-    //     });
-    // }
 
     // Forms --------------------------------------------
     
