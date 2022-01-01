@@ -186,7 +186,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
         return await result.json();
     };
-
     // getResource('http://localhost:3000/menu')
     // .then(data => {
     //     data.forEach(({img, altimg, title, descr, price}) => {
@@ -273,6 +272,50 @@ document.addEventListener('DOMContentLoaded', function() {
             closeModal();
         }, 4000);
     }
+
+    // Slider ---------------------------------------
+
+    const sliders = document.querySelectorAll('.offer__slide');
+    const leftButton = document.querySelector('.offer__slider-prev');
+    const rightButton = document.querySelector('.offer__slider-next');
+    const current = document.querySelector('#current');
+    const total = document.querySelector('#total');
+
+    let currentSlider = 0;
+
+    function setActiveSlider() {
+        sliders.forEach(slider => slider.classList.add('hide'));
+        sliders[currentSlider].classList.add('show');
+        sliders[currentSlider].classList.remove('hide');
+
+        if (sliders.length < 10) {
+            current.innerHTML = `0${currentSlider + 1}`;
+            total.innerHTML = `0${sliders.length}`;
+        } else {
+            current.innerHTML = `${currentSlider + 1}`;
+            total.innerHTML = `${sliders.length}`;
+        }
+    }
+    
+    rightButton.addEventListener('click', () => {
+        currentSlider++;
+        if (currentSlider > sliders.length - 1) {
+            currentSlider = 0;
+        }
+        
+        setActiveSlider();
+    });
+
+    leftButton.addEventListener('click', () => {
+        currentSlider--;
+        if (currentSlider < 0) {
+            currentSlider = sliders.length - 1;
+        }
+
+        setActiveSlider();
+    });
+
+    setActiveSlider();
 });
 
 
@@ -502,29 +545,6 @@ document.addEventListener('DOMContentLoaded', function() {
 //             });
 //         });
 
-//     // getResource('http://localhost:3000/menu')
-//     //     .then(data => createCard(data));
-
-//     // function createCard(data) {
-//     //     data.forEach(({img, altimg, title, descr, price}) => {
-//     //         const element = document.createElement('div');
-
-//     //         element.classList.add("menu__item");
-
-//     //         element.innerHTML = `
-//     //             <img src=${img} alt=${altimg}>
-//     //             <h3 class="menu__item-subtitle">${title}</h3>
-//     //             <div class="menu__item-descr">${descr}</div>
-//     //             <div class="menu__item-divider"></div>
-//     //             <div class="menu__item-price">
-//     //                 <div class="menu__item-cost">Цена:</div>
-//     //                 <div class="menu__item-total"><span>${price}</span> грн/день</div>
-//     //             </div>
-//     //         `;
-//     //         document.querySelector(".menu .container").append(element);
-//     //     });
-//     // }
-
 //     // Forms
 
 //     const forms = document.querySelectorAll('form');
@@ -611,4 +631,52 @@ document.addEventListener('DOMContentLoaded', function() {
 //             closeModal();
 //         }, 4000);
 //     }
+
+//     // Slider
+
+//     let slideIndex = 1;
+//     const slides = document.querySelectorAll('.offer__slide'),
+//         prev = document.querySelector('.offer__slider-prev'),
+//         next = document.querySelector('.offer__slider-next'),
+//         total = document.querySelector('#total'),
+//         current = document.querySelector('#current');
+
+//     showSlides(slideIndex);
+
+//     if (slides.length < 10) {
+//         total.textContent = `0${slides.length}`;
+//     } else {
+//         total.textContent = slides.length;
+//     }
+
+//     function showSlides(n) {
+//         if (n > slides.length) {
+//             slideIndex = 1;
+//         }
+//         if (n < 1) {
+//             slideIndex = slides.length;
+//         }
+
+//         slides.forEach((item) => item.style.display = 'none');
+
+//         slides[slideIndex - 1].style.display = 'block'; // Как ваша самостоятельная работа - переписать на использование классов show/hide
+        
+//         if (slides.length < 10) {
+//             current.textContent =  `0${slideIndex}`;
+//         } else {
+//             current.textContent =  slideIndex;
+//         }
+//     }
+
+//     function plusSlides (n) {
+//         showSlides(slideIndex += n);
+//     }
+
+//     prev.addEventListener('click', function(){
+//         plusSlides(-1);
+//     });
+
+//     next.addEventListener('click', function(){
+//         plusSlides(1);
+//     });
 // });
