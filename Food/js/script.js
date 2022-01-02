@@ -353,26 +353,25 @@ document.addEventListener('DOMContentLoaded', function() {
     dots.forEach(dot => {
         dot.addEventListener('click', (e) => {
             const dataAttr = e.target.getAttribute('data-dot-to');
-            // dot.style.opacity = 1;
-            offset = +width.slice(0, width.length - 2) * (dataAttr - 1);
+            offset = +width.replace(/\D/g, '') * (dataAttr - 1);
             slidesInner.style.transform = `translateX(-${offset}px)`;
             currentSlide = dataAttr;
 
-            setDefaulDot();
+            setDefaultDot();
             setZeroSlide();
         });
     });
 
-    function setDefaulDot() {
+    function setDefaultDot() {
         dots.forEach(dot => dot.style.opacity = '.5');
         dots[currentSlide - 1].style.opacity = 1;
     }
     
     rightButton.addEventListener('click', () => {
-        if (offset == +width.slice(0, width.length - 2) * (slides.length - 1)) {
+        if (offset == +width.replace(/\D/g, '') * (slides.length - 1)) {
             offset = 0;
         } else {
-            offset += +width.slice(0, width.length - 2);
+            offset += +width.replace(/\D/g, '');
         }
         
         if (currentSlide == slides.length) {
@@ -383,15 +382,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
         slidesInner.style.transform = `translateX(-${offset}px)`;
 
-        setDefaulDot();
+        setDefaultDot();
         setZeroSlide();
     });
 
     leftButton.addEventListener('click', () => {
         if (offset == 0) {
-            offset = `${+width.slice(0, width.length - 2) * (slides.length - 1)}`;
+            offset = `${+width.replace(/\D/g, '') * (slides.length - 1)}`;
         } else {
-            offset -= +width.slice(0, width.length - 2);
+            offset -= +width.replace(/\D/g, '');
         }
 
         if (currentSlide == 1) {
@@ -402,11 +401,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
         slidesInner.style.transform = `translateX(-${offset}px)`;
 
-        setDefaulDot();
+        setDefaultDot();
         setZeroSlide();
     });
 
-    setDefaulDot();
+    setDefaultDot();
     setZeroSlide();
 });
 
